@@ -9,7 +9,7 @@ import numpy as np
 
 def seed_everything(seed):
     random.seed(seed)
-    os.environ['PYTHONHASHSEED'] = str(seed)
+    os.environ["PYTHONHASHSEED"] = str(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
     torch.cuda.manual_seed(seed)
@@ -21,7 +21,9 @@ def torch_tensors_to_pil_list(input_images):
     out_images = []
     for in_image in input_images:
         in_image = in_image.cpu().detach()
-        out_image = torchvision.transforms.functional.to_pil_image(in_image).convert('RGB')
+        out_image = torchvision.transforms.functional.to_pil_image(in_image).convert(
+            "RGB"
+        )
         out_images.append(out_image)
     return out_images
 

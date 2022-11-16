@@ -8,16 +8,16 @@ from .model import ruDolphModel
 from .fp16 import FP16Module
 
 
-__all__ = ['ruDolphModel', 'FP16Module', 'get_rudolph_model']
+__all__ = ["ruDolphModel", "FP16Module", "get_rudolph_model"]
 
 
 MODELS = {
-    '350M': dict(
-        description='Russian Diffusion On Language Picture Hyper-modality (RuDOLPH 🦌🎄☃️) 350M is a fast and light '
-                    'text-image-text transformer (350M GPT-3) designed for a quick and easy fine-tuning setup '
-                    'for the solution of various tasks: from generating images by text description and '
-                    'image classification to visual question answering and more. \n'
-                    'This model demonstrates the power of Hyper-modality Transformers.',
+    "350M": dict(
+        description="Russian Diffusion On Language Picture Hyper-modality (RuDOLPH 🦌🎄☃️) 350M is a fast and light "
+        "text-image-text transformer (350M GPT-3) designed for a quick and easy fine-tuning setup "
+        "for the solution of various tasks: from generating images by text description and "
+        "image classification to visual question answering and more. \n"
+        "This model demonstrates the power of Hyper-modality Transformers.",
         model_params=dict(
             num_layers=24,
             hidden_size=1024,
@@ -37,13 +37,13 @@ MODELS = {
             vocab_size=16384 + 64,
             image_vocab_size=8192,
         ),
-        repo_id='shonenkov-AI/RuDOLPH-350M-v2',
-        filename='pytorch_model.bin',
-        authors='https://t.me/shonenkovAI',
-        full_description='',  # TODO
+        repo_id="shonenkov-AI/RuDOLPH-350M-v2",
+        filename="pytorch_model.bin",
+        authors="https://t.me/shonenkovAI",
+        full_description="",  # TODO
     ),
-    '1.3B': dict(
-        description='',
+    "1.3B": dict(
+        description="",
         model_params=dict(
             num_layers=24,
             hidden_size=2048,
@@ -63,13 +63,13 @@ MODELS = {
             vocab_size=16384 + 128,
             image_vocab_size=8192,
         ),
-        repo_id='sberbank-ai/RUDOLPH-1.3B',
-        filename='pytorch_model.bin',
-        authors='SberAI',
-        full_description='',  # TODO
+        repo_id="sberbank-ai/RUDOLPH-1.3B",
+        filename="pytorch_model.bin",
+        authors="SberAI",
+        full_description="",  # TODO
     ),
-    '2.7B': dict(
-        description='',
+    "2.7B": dict(
+        description="",
         model_params=dict(
             num_layers=32,
             hidden_size=2560,
@@ -89,13 +89,13 @@ MODELS = {
             vocab_size=16384 + 384,
             image_vocab_size=8192,
         ),
-        repo_id='sberbank-ai/RUDOLPH-2.7B',
-        filename='pytorch_model.bin',
-        authors='SberAI',
-        full_description='',  # TODO
+        repo_id="sberbank-ai/RUDOLPH-2.7B",
+        filename="pytorch_model.bin",
+        authors="SberAI",
+        full_description="",  # TODO
     ),
-    '2.7B_fbc2': dict(
-        description='',
+    "2.7B_fbc2": dict(
+        description="",
         model_params=dict(
             num_layers=32,
             hidden_size=2560,
@@ -115,17 +115,17 @@ MODELS = {
             vocab_size=16384 + 384,
             image_vocab_size=8192,
         ),
-        repo_id='sberbank-ai/RUDOLPH-2.7B-FBC2',
-        filename='pytorch_model.bin',
-        authors='SberAI, AIRI',
-        full_description='',  # TODO
+        repo_id="sberbank-ai/RUDOLPH-2.7B-FBC2",
+        filename="pytorch_model.bin",
+        authors="SberAI, AIRI",
+        full_description="",  # TODO
     ),
-    '350M_v1': dict(
-        description='Russian Diffusion On Language Picture Hyper-modality (RuDOLPH 🦌🎄☃️) 350M is a fast and light '
-                    'text-image-text transformer (350M GPT-3) designed for a quick and easy fine-tuning setup '
-                    'for the solution of various tasks: from generating images by text description and '
-                    'image classification to visual question answering and more. \n'
-                    'This model demonstrates the power of Hyper-modality Transformers.',
+    "350M_v1": dict(
+        description="Russian Diffusion On Language Picture Hyper-modality (RuDOLPH 🦌🎄☃️) 350M is a fast and light "
+        "text-image-text transformer (350M GPT-3) designed for a quick and easy fine-tuning setup "
+        "for the solution of various tasks: from generating images by text description and "
+        "image classification to visual question answering and more. \n"
+        "This model demonstrates the power of Hyper-modality Transformers.",
         model_params=dict(
             num_layers=24,
             hidden_size=1024,
@@ -145,34 +145,49 @@ MODELS = {
             vocab_size=16384 + 64,
             image_vocab_size=8192,
         ),
-        repo_id='sberbank-ai/RuDOLPH-350M',
-        filename='pytorch_model.bin',
-        authors='SberAI, SberDevices',
-        full_description='',  # TODO
+        repo_id="sberbank-ai/RuDOLPH-350M",
+        filename="pytorch_model.bin",
+        authors="SberAI, SberDevices",
+        full_description="",  # TODO
     ),
 }
 
 
-def get_rudolph_model(name, pretrained=True, fp16=False, device='cpu', cache_dir='/tmp/rudolph', **model_kwargs):
+def get_rudolph_model(
+    name,
+    pretrained=True,
+    fp16=False,
+    device="cpu",
+    cache_dir="/tmp/rudolph",
+    **model_kwargs
+):
     # TODO docstring
     assert name in MODELS
 
-    if fp16 and device == 'cpu':
-        print('Warning! Using both fp16 and cpu doesnt support. You can use cuda device or turn off fp16.')
+    if fp16 and device == "cpu":
+        print(
+            "Warning! Using both fp16 and cpu doesnt support. You can use cuda device or turn off fp16."
+        )
 
     config = MODELS[name].copy()
-    config['model_params'].update(model_kwargs)
-    model = ruDolphModel(device=device, **config['model_params'])
+    config["model_params"].update(model_kwargs)
+    model = ruDolphModel(device=device, **config["model_params"])
     if pretrained:
         cache_dir = os.path.join(cache_dir, name)
-        config_file_url = hf_hub_url(repo_id=config['repo_id'], filename=config['filename'])
-        cached_download(config_file_url, cache_dir=cache_dir, force_filename=config['filename'])
-        checkpoint = torch.load(os.path.join(cache_dir, config['filename']), map_location='cpu')
+        config_file_url = hf_hub_url(
+            repo_id=config["repo_id"], filename=config["filename"]
+        )
+        cached_download(
+            config_file_url, cache_dir=cache_dir, force_filename=config["filename"]
+        )
+        checkpoint = torch.load(
+            os.path.join(cache_dir, config["filename"]), map_location="cpu"
+        )
         model.load_state_dict(checkpoint)
     if fp16:
         model = FP16Module(model)
     model.eval()
     model = model.to(device)
-    if config['description'] and pretrained:
-        print(config['description'])
+    if config["description"] and pretrained:
+        print(config["description"])
     return model

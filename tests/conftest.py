@@ -8,7 +8,7 @@ from rudolph.model.model import ruDolphModel
 TEST_ROOT = dirname(abspath(__file__))
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope="module")
 def toy_model():
     model_params = dict(
         num_layers=24,
@@ -24,8 +24,8 @@ def toy_model():
         last_kernel_size=9,
         cogview_sandwich_layernorm=True,
         cogview_pb_relax=True,
-        vocab_size=16384+64,
+        vocab_size=16384 + 64,
         image_vocab_size=8192,
     )
-    model = ruDolphModel(device='cpu', **model_params)
+    model = ruDolphModel(device="cpu", **model_params)
     yield model

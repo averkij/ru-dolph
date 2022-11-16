@@ -12,8 +12,9 @@ def is_empty(t):
 
 def ensure_divisibility(numerator, denominator):
     """Ensure that numerator is divisible by the denominator."""
-    assert numerator % denominator == 0, '{} is not divisible by {}'.format(
-        numerator, denominator)
+    assert numerator % denominator == 0, "{} is not divisible by {}".format(
+        numerator, denominator
+    )
 
 
 def divide(numerator, denominator):
@@ -49,12 +50,18 @@ def init_method_normal(std=0.02):
     This is only used for embeddings. The transformer has its
     own initializer.
     """
+
     def init_(tensor):
         return torch.nn.init.normal_(tensor, mean=0.0, std=std)
+
     return init_
 
 
 def get_attention_mask(bs, l_text_tokens, image_tokens_per_dim, r_text_tokens, device):
-    total_seq_length = l_text_tokens + image_tokens_per_dim*image_tokens_per_dim + r_text_tokens
-    attention_mask = torch.tril(torch.ones((bs, 1, total_seq_length, total_seq_length), device=device))
+    total_seq_length = (
+        l_text_tokens + image_tokens_per_dim * image_tokens_per_dim + r_text_tokens
+    )
+    attention_mask = torch.tril(
+        torch.ones((bs, 1, total_seq_length, total_seq_length), device=device)
+    )
     return attention_mask
